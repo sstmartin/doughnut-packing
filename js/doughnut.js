@@ -35,7 +35,9 @@ $(document).ready(function() {
     
     //LOGIN SECTION
     $(".startbut").click(function() {
-       alert("Frame Working"); 
+        user = $("#usernum").val();
+        experiment = $("#expnum").val();
+        $("#launcher").empty();
     });
     
     /* INFORMATION RECORDING
