@@ -1,5 +1,9 @@
 $(document).ready(function() {
     
+    // Initialization
+    $("#main").hide();
+    $("#packing").hide();
+    
     /* GLOBAL VARIABLES
      * Global variables section. This section includes
      * all of the relevant global variavles that are
@@ -25,6 +29,9 @@ $(document).ready(function() {
      * based off of which task is executing.
      */
     
+    function startMain() {
+        $("#main").show();
+    }
     
     /* INTERACTION HANDLERS
      * Document interaction section. This part includes
@@ -34,10 +41,13 @@ $(document).ready(function() {
      */
     
     //LOGIN SECTION
-    $(".startbut").click(function() {
+    $("#start").click(function() {
         user = $("#usernum").val();
         experiment = $("#expnum").val();
+        
         $("#launcher").empty();
+        
+        startMain();
     });
     
     /* INFORMATION RECORDING
