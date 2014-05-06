@@ -29,10 +29,14 @@ $(document).ready(function() {
      * based off of which task is executing.
      */
     
+<<<<<<< HEAD
     function startMain() {
         $("#main").show();
     }
-
+    
+=======
+     
+>>>>>>> FETCH_HEAD
     /* INTERACTION HANDLERS
      * Document interaction section. This part includes
      * all of the relevant procedures and handlers for
