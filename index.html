@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="js/doughnut.js" charset="UTF-8"></script>
-        
+
     </head>
     <body>
         <div id="launcher" class="mainstyle"> <!-- Holds the start screen -->
@@ -19,7 +19,319 @@
             <p class="breakline"></p>
             <input id="start" type="button" class ="startbut" value="Start">
         </div>
-        <div id="main"></div> <!-- Holds the main task screen -->
+        <div id="main">
+            <table id="subtasklayout" role="presentation">
+                <tbody>
+                    <tr> <!-- First row of subtasks -->
+                        <td> <!-- First of five subtasks -->
+                            <table id="subtasksection">
+                                <th>Dough Port</th>
+                                <tbody> <!-- List of subentries -->
+                                    <tr>
+                                        <td>Original</td>
+                                        <td>
+                                            <input id="1-1" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Crispy</td>
+                                        <td>
+                                            <input id="1-2" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chewy</td>
+                                        <td>
+                                            <input id="1-3" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sticky</td>
+                                        <td>
+                                            <input id="1-4" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Total</b></td>
+                                        <td>
+                                            <input id="1-5" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="center"><input id="1-s" type="button" class ="startbut" value="Submit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        
+                        <td> <!-- Second of five subtasks -->
+                            <table id="subtasksection">
+                                <th>Puncher</th>
+                                <tbody> <!-- List of subentries -->
+                                    <tr>
+                                        <td>Round</td>
+                                        <td>
+                                            <input id="2-1" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="2-1-s">
+                                                <option value="original">Original</option>
+                                                <option value="crispy">Crispy</option>
+                                                <option value="chewy">Chewy</option>
+                                                <option value="sticky">Sticky</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Heart</td>
+                                        <td>
+                                            <input id="2-2" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="2-2-s">
+                                                <option value="original">Original</option>
+                                                <option value="crispy">Crispy</option>
+                                                <option value="chewy">Chewy</option>
+                                                <option value="sticky">Sticky</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Star</td>
+                                        <td>
+                                            <input id="2-3" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="2-3-s">
+                                                <option value="original">Original</option>
+                                                <option value="crispy">Crispy</option>
+                                                <option value="chewy">Chewy</option>
+                                                <option value="sticky">Sticky</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diamond</td>
+                                        <td>
+                                            <input id="2-4" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="2-4-s">
+                                                <option value="original">Original</option>
+                                                <option value="crispy">Crispy</option>
+                                                <option value="chewy">Chewy</option>
+                                                <option value="sticky">Sticky</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td><br/></td></tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="center"><input id="2-s" type="button" class ="startbut" value="Submit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        
+                        <td> <!-- Third of five subtasks -->
+                            <table id="subtasksection">
+                                <th>Sprinkler</th>
+                                <tbody> <!-- List of subentries -->
+                                    <tr>
+                                        <td>M&Ms</td>
+                                        <td>
+                                            <input id="3-1" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="3-1-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Smarties</td>
+                                        <td>
+                                            <input id="3-2" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="3-2-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kit Kat</td>
+                                        <td>
+                                            <input id="3-3" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="3-3-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td><br/></td></tr>
+                                    <tr><td><br/></td></tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="center"><input id="3-s" type="button" class ="startbut" value="Submit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <tr> <!-- Second row of subtasks: JUST CENTER CONSOLE -->
+                        <td></td>
+                        <td>
+                            <table id="alertframe">
+                                <tr><td align="center"><div id="alertarea"><input id="order" type="button" class ="startbut" value="Show Order"></div></td></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table id="selector">
+                                <tbody> <!-- List of subentries -->
+                                    <tr>
+                                        <td align="center">
+                                            <b>Selector</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <input id="sub1" type="button" class ="startbut" value="Dough Port">
+                                            <input id="sub2" type="button" class ="startbut" value="Puncher">
+                                            <input id="sub3" type="button" class ="startbut" value="Sprinkler">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <input id="sub4" type="button" class ="startbut" value="Fryer">
+                                            <input id="sub5" type="button" class ="startbut" value="Froster">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <tr> <!-- Third row of subtasks -->
+                        <td> <!-- Fourth of five subtasks -->
+                            <table id="subtasksection">
+                                <th>Fryer</th>
+                                <tbody> <!-- List of subentries -->
+                                    <tr>
+                                        <td>Original</td>
+                                        <td>
+                                            <input id="4-1" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Crispy</td>
+                                        <td>
+                                            <input id="4-2" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chewy</td>
+                                        <td>
+                                            <input id="4-3" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sticky</td>
+                                        <td>
+                                            <input id="4-4" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                    </tr>
+                                    <tr><td><br/></td></tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="center"><input id="4-s" type="button" class ="startbut" value="Submit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        
+                        
+                        <td> <!-- Fifth of five subtasks -->
+                            <table id="subtasksection">
+                                <th>Froster</th>
+                                <tbody> <!-- List of subentries -->
+                                    <tr>
+                                        <td>None</td>
+                                        <td>
+                                            <input id="5-1" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="5-1-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chocolate</td>
+                                        <td>
+                                            <input id="5-2" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="5-2-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                    </tr>
+                                    <tr>
+                                        <td>Strawberry</td>
+                                        <td>
+                                            <input id="5-3" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="5-3-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                    </tr>
+                                    <tr>
+                                        <td>Vanilla</td>
+                                        <td>
+                                            <input id="5-4" class="maintask" value="0" maxlength="2"/>
+                                        </td>
+                                        <td>
+                                            <select id="5-4-s">
+                                                <option value="round">Round</option>
+                                                <option value="heart">Heart</option>
+                                                <option value="star">Star</option>
+                                                <option value="diamond">Diamond</option>
+                                            </select>
+                                    </tr>
+                                    <tr><td><br/></td></tr>
+                                    <tr>
+                                        <td></td>
+                                        <td align="center"><input id="5-s" type="button" class ="startbut" value="Submit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> <!-- Holds the main task screen -->
         <div id="packing"></div> <!-- Holds the packing task screen -->
     </body>
 </html>
