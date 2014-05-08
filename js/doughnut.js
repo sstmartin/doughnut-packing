@@ -3,6 +3,8 @@ $(document).ready(function() {
     // Initialization
     $("#main").hide();
     $("#packing").hide();
+    $('#runner').runner();
+    $('#alertentries').hide();
 
     /* GLOBAL VARIABLES
      * Global variables section. This section includes
@@ -16,7 +18,7 @@ $(document).ready(function() {
     var experiment = -1;
 
     //MAIN TASK Variables
-    var subtask = 0;
+    var selector = 0;
 
     //TIME Variables
     var time = 0;
@@ -49,10 +51,10 @@ $(document).ready(function() {
     });
     $(":button").mousedown(function() {
         $(this).css("background-color", "#eeeeee");
-    })
+    });
     $(":button").mouseup(function() {
         $(this).css("background-color", "#9e9e9e");
-    })
+    });
 
     //LOGIN SECTION
     $("#start").click(function() {
@@ -60,6 +62,9 @@ $(document).ready(function() {
         experiment = $("#expnum").val();
 
         $("#launcher").empty();
+        
+        //Start Timer
+        $('#runner').runner('start');
 
         startMain();
     });
@@ -67,6 +72,15 @@ $(document).ready(function() {
     //MAIN SECTION
 
     //All Subtasks
+
+    //Show Order Button
+    $("#order").click(function() {
+        alert("" + $('#runner').runner('lap'));
+        
+        $("#order").hide();
+        $("#alertentries").show();
+        $("#runner").runner('reset');
+    });
 
     // Clears Textbox when clicked
     $(".maintask").click(function() {

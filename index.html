@@ -7,11 +7,15 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="js/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="js/jquery.runner-min.js"></script>
         <script type="text/javascript" src="js/doughnut.js" charset="UTF-8"></script>
 
     </head>
     <body>
+        <div id="holdtimer">
+            <span id="runner"></span>
+        </div>
         <div id="launcher" class="mainstyle"> <!-- Holds the start screen -->
             Participant Number: <input id="usernum" class = "launch">
             <p class="breakline"></p>
@@ -192,12 +196,19 @@
                     </tr>
                     
                     <tr> <!-- Second row of subtasks: JUST CENTER CONSOLE -->
-                        <td></td>
-                        <td>
-                            <table id="alertframe">
-                                <tr><td align="center"><div id="alertarea"><input id="order" type="button" class ="startbut" value="Show Order"></div></td></tr>
+                        <td id="alertframe" colspan="2" align="center">
+                            <input id="order" type="button" class ="startbut" value="Show Order">
+                            <table id="alertentries">
+                                <tr align="center" id="underlineme">
+                                    <td>Quantity</td>
+                                    <td>Dough</td>
+                                    <td>Shape</td>
+                                    <td>Frosting</td>
+                                    <td>Sprinkle</td>
+                                </tr>
                             </table>
                         </td>
+                        </div>
                         <td>
                             <table id="selector">
                                 <tbody> <!-- List of subentries -->
@@ -217,6 +228,7 @@
                                         <td align="center">
                                             <input id="sub4" type="button" class ="startbut" value="Fryer">
                                             <input id="sub5" type="button" class ="startbut" value="Froster">
+                                            <span class="tab"></span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -326,6 +338,12 @@
                                         <td align="center"><input id="5-s" type="button" class ="startbut" value="Submit"></td>
                                     </tr>
                                 </tbody>
+                            </table>
+                        </td>
+                        
+                        <td> <!-- Submit Order Pane -->
+                            <table id="processframe">
+                                <tr><td align="center"><div id="processarea"><input id="process" type="button" class ="startbut" value="Process"></div></td></tr>
                             </table>
                         </td>
                     </tr>
