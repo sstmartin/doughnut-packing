@@ -15,6 +15,7 @@
     <body>
         <div id="holdtimer">
             <span id="runner"></span>
+            <span id="errorwait"></span>
         </div>
         <div id="launcher" class="mainstyle"> <!-- Holds the start screen -->
             Participant Number: <input id="usernum" class = "launch">
@@ -28,7 +29,7 @@
                 <tbody>
                     <tr> <!-- First row of subtasks -->
                         <td> <!-- First of five subtasks -->
-                            <table id="subtasksection">
+                            <table class="subtasksection" id ="subtask1">
                                 <th>Dough Port</th>
                                 <tbody> <!-- List of subentries -->
                                     <tr>
@@ -70,7 +71,7 @@
                         </td>
                         
                         <td> <!-- Second of five subtasks -->
-                            <table id="subtasksection">
+                            <table class="subtasksection" id ="subtask2">
                                 <th>Puncher</th>
                                 <tbody> <!-- List of subentries -->
                                     <tr>
@@ -80,10 +81,10 @@
                                         </td>
                                         <td>
                                             <select id="2-1-s">
-                                                <option value="original">Original</option>
-                                                <option value="crispy">Crispy</option>
-                                                <option value="chewy">Chewy</option>
-                                                <option value="sticky">Sticky</option>
+                                                <option value="Original">Original</option>
+                                                <option value="Crispy">Crispy</option>
+                                                <option value="Chewy">Chewy</option>
+                                                <option value="Sticky">Sticky</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -94,10 +95,10 @@
                                         </td>
                                         <td>
                                             <select id="2-2-s">
-                                                <option value="original">Original</option>
-                                                <option value="crispy">Crispy</option>
-                                                <option value="chewy">Chewy</option>
-                                                <option value="sticky">Sticky</option>
+                                                <option value="Original">Original</option>
+                                                <option value="Crispy">Crispy</option>
+                                                <option value="Chewy">Chewy</option>
+                                                <option value="Sticky">Sticky</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -108,10 +109,10 @@
                                         </td>
                                         <td>
                                             <select id="2-3-s">
-                                                <option value="original">Original</option>
-                                                <option value="crispy">Crispy</option>
-                                                <option value="chewy">Chewy</option>
-                                                <option value="sticky">Sticky</option>
+                                                <option value="Original">Original</option>
+                                                <option value="Crispy">Crispy</option>
+                                                <option value="Chewy">Chewy</option>
+                                                <option value="Sticky">Sticky</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -122,10 +123,10 @@
                                         </td>
                                         <td>
                                             <select id="2-4-s">
-                                                <option value="original">Original</option>
-                                                <option value="crispy">Crispy</option>
-                                                <option value="chewy">Chewy</option>
-                                                <option value="sticky">Sticky</option>
+                                                <option value="Original">Original</option>
+                                                <option value="Crispy">Crispy</option>
+                                                <option value="Chewy">Chewy</option>
+                                                <option value="Sticky">Sticky</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -139,7 +140,7 @@
                         </td>
                         
                         <td> <!-- Third of five subtasks -->
-                            <table id="subtasksection">
+                            <table class="subtasksection" id="subtask3">
                                 <th>Sprinkler</th>
                                 <tbody> <!-- List of subentries -->
                                     <tr>
@@ -149,10 +150,10 @@
                                         </td>
                                         <td>
                                             <select id="3-1-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -163,10 +164,10 @@
                                         </td>
                                         <td>
                                             <select id="3-2-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -177,10 +178,10 @@
                                         </td>
                                         <td>
                                             <select id="3-3-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -207,8 +208,8 @@
                                     <td>Sprinkle</td>
                                 </tr>
                             </table>
+                            <div id="errorarea" align="center"><table></table></div>
                         </td>
-                        </div>
                         <td>
                             <table id="selector">
                                 <tbody> <!-- List of subentries -->
@@ -238,7 +239,7 @@
                     
                     <tr> <!-- Third row of subtasks -->
                         <td> <!-- Fourth of five subtasks -->
-                            <table id="subtasksection">
+                            <table class="subtasksection" id="subtask4">
                                 <th>Fryer</th>
                                 <tbody> <!-- List of subentries -->
                                     <tr>
@@ -276,7 +277,7 @@
                         
                         
                         <td> <!-- Fifth of five subtasks -->
-                            <table id="subtasksection">
+                            <table class="subtasksection" id="subtask5">
                                 <th>Froster</th>
                                 <tbody> <!-- List of subentries -->
                                     <tr>
@@ -286,10 +287,10 @@
                                         </td>
                                         <td>
                                             <select id="5-1-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -300,10 +301,10 @@
                                         </td>
                                         <td>
                                             <select id="5-2-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                     </tr>
                                     <tr>
@@ -313,10 +314,10 @@
                                         </td>
                                         <td>
                                             <select id="5-3-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                     </tr>
                                     <tr>
@@ -326,10 +327,10 @@
                                         </td>
                                         <td>
                                             <select id="5-4-s">
-                                                <option value="round">Round</option>
-                                                <option value="heart">Heart</option>
-                                                <option value="star">Star</option>
-                                                <option value="diamond">Diamond</option>
+                                                <option value="Round">Round</option>
+                                                <option value="Heart">Heart</option>
+                                                <option value="Star">Star</option>
+                                                <option value="Diamond">Diamond</option>
                                             </select>
                                     </tr>
                                     <tr><td><br/></td></tr>
@@ -351,5 +352,6 @@
             </table>
         </div> <!-- Holds the main task screen -->
         <div id="packing"></div> <!-- Holds the packing task screen -->
+        <div id="end"></div>
     </body>
 </html>
