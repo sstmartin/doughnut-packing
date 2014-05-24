@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     // Initialization
     $("#main").hide();
+    $("#criticalerror").hide();
     $("#packing").hide();
     $('#runner').runner();
     $('#alertentries').hide();
@@ -9,7 +10,7 @@ $(document).ready(function() {
     /* GLOBAL VARIABLES
      * Global variables section. This section includes
      * all of the relevant global variavles that are
-     * neccessary to determine state and record 
+     * neccessary to determine state and record
      * execution information.
      */
 
@@ -29,17 +30,40 @@ $(document).ready(function() {
 
     //CONSTANTS
     //Trials Constant (note layout [trial-1][first or second part][variable]
-    var trials = [[[36, 'Crispy', 'Heart', 'None', 'Kit Kat'], [45, 'Sticky', 'Diamond', 'Chocolate', 'M&M']],
-        [[27, 'Sticky', 'Round', 'Vanilla', 'Smarties'], [21, 'Crispy', 'Star', 'None', 'None']]];
+    var trials = [[[36, 'Crispy', 'Heart', 'Kit Kat', 'None'], [45, 'Sticky', 'Diamond', 'M&M', 'Chocolate']],
+        [[27, 'Sticky', 'Round', 'Smarties', 'Vanilla'], [21, 'Crispy', 'Star', 'None', 'None']],
+        [[49, 'Original', 'Diamond', 'Kit Kat', 'Chocolate'], [18, 'Chewy', 'Round', 'Smarties', 'Strawberry']],
+        [[23, 'Original', 'Round', 'Kit Kat', 'Strawberry'], [45, 'Sticky', 'Star', 'Smarties', 'Vanilla']],
+        [[40, 'Sticky', 'Star', 'M&M', 'Chocolate'], [29, 'Chewy', 'Diamond', 'None', 'None']],
+        [[34, 'Sticky', 'Heart', 'Smarties', 'None'], [17, 'Chewy', 'Star', 'Kit Kat', 'Vanilla']],
+        [[28, 'Original', 'Round', 'Kit Kat', 'Chocolate'], [41, 'Sticky', 'Star', 'Smarties', 'Strawberry']],
+        [[35, 'Sticky', 'Star', 'None', 'Chocolate'], [44, 'Chewy', 'Heart', 'M&M', 'None']],
+        [[50, 'Chewy', 'Round', 'None', 'Vanilla'], [13, 'Sticky', 'Diamond', 'M&M', 'Strawberry']],
+        [[25, 'Chewy', 'Star', 'Smarties', 'None'], [49, 'Original', 'Round', 'None', 'Chocolate']],
+        [[26, 'Sticky', 'Star', 'None', 'Vanilla'], [18, 'Original', 'Round', 'Smarties', 'None']],
+        [[22, 'Chewy', 'Round', 'Smarties', 'Strawberry'], [33, 'Crispy', 'Heart', 'Kit Kat', 'Chocolate']]];
 
     var firsttask = ['Blank', 'Original', 'Crispy', 'Chewy', 'Sticky'];
     var secondtask = ['Blank', 'Round', 'Heart', 'Star', 'Diamond'];
     var thirdtask = ['Blank', 'M&M', 'Smarties', 'Kit Kat'];
-    var fifthtask = ['Blank','None','Chocolate','Strawberry','Vanilla'];
+    var fifthtask = ['Blank', 'None', 'Chocolate', 'Strawberry', 'Vanilla'];
+
+    var packingstates = [[0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 1, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0]];
 
     /* FUNCTIONS
      * Function section. This section is responsible
-     * for including all relevant functions for the 
+     * for including all relevant functions for the
      * entire task. It is organized into subsections,
      * based off of which task is executing.
      */
@@ -48,30 +72,53 @@ $(document).ready(function() {
         $("#main").show();
     }
 
-    function error() {
-        if (experiment === 0) {
-            errorOne();
+    function error() {        
+        if (experiment !== 0 && (selector === 0 && state_requested === 4)) {
+            errorTwo();
         }
         else {
-            errorTwo();
+            errorOne();
         }
     }
 
-    function errorOne() {
+    function errorOne() {     
         $("#alertentries").hide();
         $("#errorarea").html("Error Alert");
 
-        $("#subtask" + state_requested).css({"border": "4px solid #ff0000"});
-
         setTimeout(function() {
-            $("#subtask" + state_requested).css({"border": "4px solid gray"});
+            $("#subtask" + state_requested).css({"border": "4px solid #ff0000"});
             $("#alertentries").show();
             $("#errorarea").html("");
-        }, 1000);
+        }, 2000);
+
+        //Reds the boxout for 5000-2000 seconds!
+        setTimeout(function( ) {
+            $("#subtask" + state_requested).css({"border": "4px solid gray"});
+        }, 5000);
     }
 
     function errorTwo() {
+        $("#main").hide();
+        $("#criticalerror").show();
 
+        setTimeout(function() {
+            $("#main").show();
+            $("#criticalerror").hide();
+
+            //Reset Trail
+            ordervisible = 0;
+            selector = 0;
+            $("#alertentries").hide();
+            $('#alertentries tr:last').remove();
+            $('#alertentries tr:last').remove();
+            $("#order").show();
+
+            //Extra Clear Boxes
+            $(".maintask").val("0");
+            $("select").prop('selectedIndex', 0);
+
+            state_requested = 1;
+        }, 5000); //Set Time here in milliseconds to wait
     }
 
     //FUNCTION RESPONSIBLE FOR CHECKING EACH STATE (WORKING FINE!)
@@ -150,11 +197,11 @@ $(document).ready(function() {
                 }
             }
         } // END OF SECOND SUBTASK
-        
+
         //Third Subtask
         else if (state_requested === 3) {
-            firsttype = trials[trial][0][4];
-            secondtype = trials[trial][1][4];
+            firsttype = trials[trial][0][3];
+            secondtype = trials[trial][1][3];
 
             firsttypeD = trials[trial][0][2];
             secondtypeD = trials[trial][1][2];
@@ -216,15 +263,15 @@ $(document).ready(function() {
                 }
             }
         } //END OF FOURTH SUBTASK
-        
+
         //Fifth Subtask
         else if (state_requested === 5) {
-            firsttype = trials[trial][0][3];
-            secondtype = trials[trial][1][3];
+            firsttype = trials[trial][0][4];
+            secondtype = trials[trial][1][4];
 
             firsttypeD = trials[trial][0][2];
             secondtypeD = trials[trial][1][2];
-     
+
             for (i = 1; i < 5; i++) {
                 //If this is the first row column
                 if (firsttype === fifthtask[i]) {
@@ -250,8 +297,8 @@ $(document).ready(function() {
                 }
             }
         } // END OF FIFTH
-        
-        
+
+
         //If ALL CORRECT
         if (allcorrect === 1) {
             nextSubTask();
@@ -259,6 +306,28 @@ $(document).ready(function() {
     }
 
     function nextSubTask() {
+        //THIS IS WHERE I NEED TO INTERRUPT?
+
+        if (packingstates[trial][state_requested] === 1) {
+            $("#main").hide();
+            $("#packing").show();
+
+            $("#linetwo span:last").remove();
+            generateCase();
+
+            setTimeout(function() {
+                $("#main").show();
+                $("#packing").hide();
+
+                //MAKE SURE TO CLEAR QUESTIONS ALREADY ACCESSED
+                alreadydone = [];
+
+                //Extra Clear Boxes
+                $(".maintask").val("0");
+                $("select").prop('selectedIndex', 0);
+            }, 10000); //Set Time here in milliseconds to wait
+        }
+
         //Increment the Subtask
         state_requested = state_requested + 1;
 
@@ -266,7 +335,7 @@ $(document).ready(function() {
         selector = 0;
 
         //Clear Order
-        if(state_requested === 6){
+        if (state_requested === 6) {
             ordervisible = 0;
         }
 
@@ -281,7 +350,7 @@ $(document).ready(function() {
     /* INTERACTION HANDLERS
      * Document interaction section. This part includes
      * all of the relevant procedures and handlers for
-     * all of the tasks. It is organized based off of 
+     * all of the tasks. It is organized based off of
      * which subtask is happening.
      */
 
@@ -315,45 +384,57 @@ $(document).ready(function() {
 
     //Checks when you click on any text box
     $("input").click(function() {
-        //If This is a Low Cost Experiment
-        if (experiment === 0) {
-            indicator = $(this).attr("id").substring(0, 1);
+        indicator = $(this).attr("id").substring(0, 1);
 
-            //If they haven't clicked on the selector yet
-            if (selector === 0 && ordervisible === 1) {
-                //If they click on a subtask entry field
-                if (indicator !== 's') {
-                    error();
+        //Resets to Gray Border (catching error)
+        if (parseInt(indicator) >= 1 && parseInt(indicator) <= 5) {
+            $("#subtask" + indicator).css({"border": "4px solid gray"});
+        }
+
+        //If in the packing task
+        if($("#packing").is(":visible")) {
+            // DO NOTHING
+        }
+        //If in that awkward waiting to process stage
+        else if (state_requested === 6) {
+            if (indicator !== 'p') {
+                error();
+            }
+        }
+        //If they haven't clicked on the selector yet
+        else if (selector === 0 && ordervisible === 1) {
+            //If they click on a subtask entry field
+            if (indicator !== 's') {
+                error();
+            }
+            //If they click on a selector
+            else if (indicator === 's') {
+                they_clicked = parseInt($(this).attr("id").substring(3));
+
+                //If they clicked on the right subtask
+                if (they_clicked === state_requested) {
+                    selector = they_clicked;
                 }
-                //If they click on a selector
-                else if (indicator === 's') {
-                    they_clicked = parseInt($(this).attr("id").substring(3));
-
-                    //If they clicked on the right subtask
-                    if (they_clicked === state_requested) {
-                        selector = they_clicked;
-                    }
-                    else {
-                        error();
-                    }
+                else {
+                    error();
                 }
             }
-            //If they have already correctly clicked in the selector
-            else if (selector !== 0) {
+        }
+        //If they have already correctly clicked in the selector
+        else if (selector !== 0) {
 
-                //If they click on the selector again
-                if (indicator === 's') {
-                    error();
-                }
-                //If they click on an incorrect subtask entry field
-                else if (indicator !== state_requested.toString()) {
-                    error();
-                }
-                //If they click on submit
-                else if ($(this).attr("id").substring(2) === 's') {
-                    //THIS IS WHERE I NEED TO INTERRUPT
-                    checkSubmitted();
-                }
+            //If they click on the selector again
+            if (indicator === 's') {
+                error();
+            }
+            //If they click on an incorrect subtask entry field
+            else if (indicator !== state_requested.toString()) {
+                error();
+            }
+            //If they click on submit
+            else if ($(this).attr("id").substring(2) === 's') {
+                //THIS IS WHERE I NEED TO INTERRUPT
+                checkSubmitted();
             }
         }
     });
@@ -380,7 +461,7 @@ $(document).ready(function() {
         ordervisible = 1;
     });
 
-    //Process Order Button 
+    //Process Order Button
     $("#process").click(function() {
 
         if (state_requested === 6) {
@@ -388,6 +469,7 @@ $(document).ready(function() {
             $('#alertentries tr:last').remove();
             $('#alertentries tr:last').remove();
 
+            $("#subtask6").css({"border": "1px solid gray"});
 
             //Increment Trial
             trial = trial + 1;
@@ -395,7 +477,7 @@ $(document).ready(function() {
             state_requested = 1;
 
             //If all trials are done
-            if (trial === 2) {
+            if (trial === 12) {
                 $("#main").hide();
                 $("#end").html("THANK YOU");
             }
@@ -419,6 +501,90 @@ $(document).ready(function() {
         }
     });
 
+    window.onbeforeunload = function() {
+        return 'Are You Sure You Want to Exit the Production Task?';
+    };
+
+    /*
+     * DOUGHNUT PACKING TASK SECTION
+     */
+    var alreadydone = [];
+
+    function generateCase() {
+        doughnuts = Math.floor((Math.random() * 46) + 5);
+
+        //CHECKS TO SEE IF ALREADY DONE THIS VALUE
+        while (jQuery.inArray(doughnuts, alreadydone) > - 1)
+            doughnuts = Math.floor((Math.random() * 46) + 5);
+
+        alreadydone.push(doughnuts);
+
+        var rightboxes = 3;
+
+        if (doughnuts % 2 === 0) {
+            rightboxes = 4;
+        }
+
+        $("#linetwo").append("<span>" + rightboxes + "-count</span>");
+        $(".prompt").html("Given " + "<em>" + doughnuts + "</em> doughnuts, " + " how many " + "<em>2</em>-count and <em>" + rightboxes + "</em>-count boxes do you need?");
+
+        $("input[name=leftbox]").val('');
+        $("input[name=rightbox").val('');
+
+        $(".prompt").show();
+    }
+
+
+    //Keeps textboxes numbers only and clears when clicked
+    $(".numbersOnly").keyup(function() {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+    });
+    $(".numbersOnly").click(function() {
+        $(this).val("");
+    });
+
+    //When submit is hit
+    $("#submitdoughnut").click(function() {
+
+        var left = parseInt($("input[name=leftbox]").val());
+        var right = parseInt($("input[name=rightbox]").val());
+
+        var first = 0;
+        var second = 0;
+
+        //Check Math of Calculations
+        if (doughnuts % 2 === 0) {
+            second = Math.floor(doughnuts / 4);
+            if ((doughnuts - (second * 4)) === 1)
+                second = second - 1;
+            first = Math.floor((doughnuts - (second * 4)) / 2);
+        }
+        else {
+            second = Math.floor(doughnuts / 3);
+            if ((doughnuts - (second * 3)) === 1)
+                second = second - 1;
+            first = Math.floor((doughnuts - (second * 3)) / 2);
+        }
+
+        if (left === first && right === second) {
+            $("#validzone").html("CORRECT");
+
+            setTimeout(function() {
+                $("#validzone").html("");
+                $("#linetwo span:last").remove();
+                
+                generateCase();
+            }, 500);
+        }
+        else {
+            $("#validzone").html("INCORRECT");
+
+            setTimeout(function() {
+                $("#validzone").html("");
+            }, 1000);
+        }
+    });
+
     /* INFORMATION RECORDING
      * Information recording section. This part includes
      * relevant handlers/functions for recording the
@@ -426,5 +592,5 @@ $(document).ready(function() {
      * execute external scripts responsible for storing
      * the information.
      */
-});
 
+});

@@ -13,10 +13,11 @@
 
     </head>
     <body>
+        <!--
         <div id="holdtimer">
             <span id="runner"></span>
             <span id="errorwait"></span>
-        </div>
+        </div>-->
         <div id="launcher" class="mainstyle"> <!-- Holds the start screen -->
             Participant Number: <input id="usernum" class = "launch">
             <p class="breakline"></p>
@@ -69,7 +70,7 @@
                                 </tbody>
                             </table>
                         </td>
-                        
+
                         <td> <!-- Second of five subtasks -->
                             <table class="subtasksection" id ="subtask2">
                                 <th>Puncher</th>
@@ -138,7 +139,7 @@
                                 </tbody>
                             </table>
                         </td>
-                        
+
                         <td> <!-- Third of five subtasks -->
                             <table class="subtasksection" id="subtask3">
                                 <th>Sprinkler</th>
@@ -195,7 +196,7 @@
                             </table>
                         </td>
                     </tr>
-                    
+
                     <tr> <!-- Second row of subtasks: JUST CENTER CONSOLE -->
                         <td id="alertframe" colspan="2" align="center">
                             <input id="order" type="button" class ="startbut" value="Show Order">
@@ -204,8 +205,8 @@
                                     <td>Quantity</td>
                                     <td>Dough</td>
                                     <td>Shape</td>
-                                    <td>Frosting</td>
                                     <td>Sprinkle</td>
+                                    <td>Frosting</td>
                                 </tr>
                             </table>
                             <div id="errorarea" align="center"><table></table></div>
@@ -236,7 +237,7 @@
                             </table>
                         </td>
                     </tr>
-                    
+
                     <tr> <!-- Third row of subtasks -->
                         <td> <!-- Fourth of five subtasks -->
                             <table class="subtasksection" id="subtask4">
@@ -274,8 +275,8 @@
                                 </tbody>
                             </table>
                         </td>
-                        
-                        
+
+
                         <td> <!-- Fifth of five subtasks -->
                             <table class="subtasksection" id="subtask5">
                                 <th>Froster</th>
@@ -341,9 +342,9 @@
                                 </tbody>
                             </table>
                         </td>
-                        
+
                         <td> <!-- Submit Order Pane -->
-                            <table id="processframe">
+                            <table class="processframe" id="subtask6">
                                 <tr><td align="center"><div id="processarea"><input id="process" type="button" class ="startbut" value="Process"></div></td></tr>
                             </table>
                         </td>
@@ -351,7 +352,38 @@
                 </tbody>
             </table>
         </div> <!-- Holds the main task screen -->
-        <div id="packing"></div> <!-- Holds the packing task screen -->
-        <div id="end"></div>
+        
+        <div id="packing" style="font-family:Arial;font-size:36px;">
+            <br><br><br><br>
+            <div class="prompt" align="center"></div>
+            
+            <br><br>
+            
+            <div id="lineone" align="center">
+                <span><input id="textbox" type="text" name="leftbox" class="numbersOnly" maxlength="2"></span><span> 2-count</span>
+            </div>
+            
+            <br>
+            
+            <div id="linetwo" align="center">
+                <span><input id="textbox" type="text" name="rightbox" class="numbersOnly" maxlength="2"></span><span>Blank</span>
+            </div>
+            
+            <br><br>
+            
+            <div class="bot" align="center">
+                <input id="submitdoughnut" type="button" class ="startbut" value="Pack Doughnuts">
+            </div>
+            
+            <div id="validzone" align="center"></div>
+            
+        </div> <!-- Holds the packing task screen -->
+        
+        <div id="criticalerror"><br><br><br>Critical Error Alert: Lockout</div>
+        
+        <br><br>
+        
+        <div id="end" align="center" style="font-family:Arial;font-size:36px;"></div>
     </body>
+
 </html>
