@@ -5,6 +5,7 @@ $(document).ready(function() {
     $("#criticalerror").hide();
     $("#packing").hide();
     $('#runner').runner();
+    $("#runner").hide();
     $('#alertentries').hide();
 
     /* GLOBAL VARIABLES
@@ -15,8 +16,8 @@ $(document).ready(function() {
      */
 
     //USER Information Variables
-    var user = -1;
-    var experiment = -1;
+    var user = 125;
+    var experiment = 23;
 
     //MAIN TASK Variables
     var ordervisible = 0;
@@ -26,7 +27,11 @@ $(document).ready(function() {
 
     //TIME Variables
     var time = 0;
+    var timerrunning = 0;
+    var stats = [0, 0, 0, 0, 2663, 0, 0, 0, 0, 0, 0, 0]
+    var statspos = 0;
 
+    writeToServer();
 
     //CONSTANTS
     //Trials Constant (note layout [trial-1][first or second part][variable]
@@ -61,6 +66,9 @@ $(document).ready(function() {
         [0, 0, 1, 1, 0, 0],
         [0, 0, 0, 0, 0, 0]];
 
+
+
+
     /* FUNCTIONS
      * Function section. This section is responsible
      * for including all relevant functions for the
@@ -72,7 +80,7 @@ $(document).ready(function() {
         $("#main").show();
     }
 
-    function error() {        
+    function error() {
         if (experiment !== 0 && (selector === 0 && state_requested === 4)) {
             errorTwo();
         }
@@ -81,7 +89,7 @@ $(document).ready(function() {
         }
     }
 
-    function errorOne() {     
+    function errorOne() {
         $("#alertentries").hide();
         $("#errorarea").html("Error Alert");
 
@@ -309,6 +317,10 @@ $(document).ready(function() {
         //THIS IS WHERE I NEED TO INTERRUPT?
 
         if (packingstates[trial][state_requested] === 1) {
+
+            //Set this value to 0 so Type 2 Will not repeat packing task on reset
+            packingstates[trial][state_requested] = 0;
+
             $("#main").hide();
             $("#packing").show();
 
@@ -325,7 +337,12 @@ $(document).ready(function() {
                 //Extra Clear Boxes
                 $(".maintask").val("0");
                 $("select").prop('selectedIndex', 0);
-            }, 10000); //Set Time here in milliseconds to wait
+
+                //Start the Timer
+                $('#runner').runner('lap');
+                timerrunning = 1;
+
+            }, 1000); //Set Time here in milliseconds to wait
         }
 
         //Increment the Subtask
@@ -375,6 +392,8 @@ $(document).ready(function() {
 
         $("#launcher").empty();
 
+        $('#runner').runner('start');
+
         startMain();
     });
 
@@ -391,8 +410,17 @@ $(document).ready(function() {
             $("#subtask" + indicator).css({"border": "4px solid gray"});
         }
 
+
+        if (timerrunning === 1 && $("#main").is(":visible")) {
+            timerrunning = 0;
+            var lapper = $("#runner").runner("lap");
+            alert("BABY: " + lapper);
+            stats[statspos] = lapper;
+            statspos = statspos + 1;
+        }
+
         //If in the packing task
-        if($("#packing").is(":visible")) {
+        if ($("#packing").is(":visible")) {
             // DO NOTHING
         }
         //If in that awkward waiting to process stage
@@ -477,9 +505,10 @@ $(document).ready(function() {
             state_requested = 1;
 
             //If all trials are done
-            if (trial === 12) {
+            if (trial === 2) {
                 $("#main").hide();
                 $("#end").html("THANK YOU");
+                alert(stats);
             }
             else {
                 $("#order").show();
@@ -572,7 +601,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 $("#validzone").html("");
                 $("#linetwo span:last").remove();
-                
+
                 generateCase();
             }, 500);
         }
@@ -593,4 +622,24 @@ $(document).ready(function() {
      * the information.
      */
 
+
+    function writeToServer() {
+        
+        var sendthis = user.toString();
+        var andthis = experiment.toString();
+        var andalsothis = stats.toString();
+        
+        var request = $.ajax({
+            url:"storedata.php",
+            type:"POST",
+            data: ({sendthis:sendthis,andthis:andthis,andalsothis:andalsothis}),
+            
+            success : function(msg) {
+                $("#dataoutput").html(msg);
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                $("#dataoutput").html("API Error");
+            }
+        });
+    }
 });
