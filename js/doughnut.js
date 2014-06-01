@@ -4,8 +4,8 @@ $(document).ready(function() {
     $("#main").hide();
     $("#criticalerror").hide();
     $("#packing").hide();
-    $('#runner').runner();
-    $("#runner").hide();
+    //$('#runner').runner();
+    //$("#runner").hide();
     $('#alertentries').hide();
 
     /* GLOBAL VARIABLES
@@ -16,8 +16,8 @@ $(document).ready(function() {
      */
 
     //USER Information Variables
-    var user = 125;
-    var experiment = 23;
+    var user = -1;
+    var experiment = -1;
 
     //MAIN TASK Variables
     var ordervisible = 0;
@@ -28,10 +28,9 @@ $(document).ready(function() {
     //TIME Variables
     var time = 0;
     var timerrunning = 0;
-    var stats = [0, 0, 0, 0, 2663, 0, 0, 0, 0, 0, 0, 0]
+    var stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var statspos = 0;
-
-    writeToServer();
+    var startTime = 0;
 
     //CONSTANTS
     //Trials Constant (note layout [trial-1][first or second part][variable]
@@ -50,7 +49,7 @@ $(document).ready(function() {
 
     var firsttask = ['Blank', 'Original', 'Crispy', 'Chewy', 'Sticky'];
     var secondtask = ['Blank', 'Round', 'Heart', 'Star', 'Diamond'];
-    var thirdtask = ['Blank', 'M&M', 'Smarties', 'Kit Kat'];
+    var thirdtask = ['Blank', 'None', 'M&M', 'Smarties', 'Kit Kat'];
     var fifthtask = ['Blank', 'None', 'Chocolate', 'Strawberry', 'Vanilla'];
 
     var packingstates = [[0, 0, 0, 0, 0, 0],
@@ -126,7 +125,7 @@ $(document).ready(function() {
             $("select").prop('selectedIndex', 0);
 
             state_requested = 1;
-        }, 5000); //Set Time here in milliseconds to wait
+        }, 20000); //Set Time here in milliseconds to wait
     }
 
     //FUNCTION RESPONSIBLE FOR CHECKING EACH STATE (WORKING FINE!)
@@ -339,10 +338,13 @@ $(document).ready(function() {
                 $("select").prop('selectedIndex', 0);
 
                 //Start the Timer
-                $('#runner').runner('lap');
+                //$('#runner').runner('lap');
                 timerrunning = 1;
+                
+                //Start the homemade timer
+                startTime = new Date().getTime();
 
-            }, 1000); //Set Time here in milliseconds to wait
+            }, 30000); //Set Time here in milliseconds to wait
         }
 
         //Increment the Subtask
@@ -392,7 +394,7 @@ $(document).ready(function() {
 
         $("#launcher").empty();
 
-        $('#runner').runner('start');
+        //$('#runner').runner('start');
 
         startMain();
     });
@@ -412,10 +414,19 @@ $(document).ready(function() {
 
 
         if (timerrunning === 1 && $("#main").is(":visible")) {
+            var endTime = new Date().getTime();
+            
             timerrunning = 0;
-            var lapper = $("#runner").runner("lap");
-            alert("BABY: " + lapper);
-            stats[statspos] = lapper;
+            //var lapper = $("#runner").runner("lap");
+            //stats[statspos] = lapper;
+            //statspos = statspos + 1;
+            
+            //New timer
+            var dif = endTime - startTime;
+            ms = dif%1000;
+            s = Math.floor(dif/1000)%60;
+            m = Math.floor(dif/1000/60)%60;
+            stats[statspos] = m + ":" + s + "." + ms;
             statspos = statspos + 1;
         }
 
@@ -505,10 +516,10 @@ $(document).ready(function() {
             state_requested = 1;
 
             //If all trials are done
-            if (trial === 2) {
+            if (trial === 12) {
                 $("#main").hide();
-                $("#end").html("THANK YOU");
-                alert(stats);
+                $("#end").html("Thank you for participating");
+                writeToServer();
             }
             else {
                 $("#order").show();
@@ -540,11 +551,11 @@ $(document).ready(function() {
     var alreadydone = [];
 
     function generateCase() {
-        doughnuts = Math.floor((Math.random() * 46) + 5);
+        doughnuts = Math.floor((Math.random() * 31) + 5);
 
         //CHECKS TO SEE IF ALREADY DONE THIS VALUE
         while (jQuery.inArray(doughnuts, alreadydone) > - 1)
-            doughnuts = Math.floor((Math.random() * 46) + 5);
+            doughnuts = Math.floor((Math.random() * 31) + 5);
 
         alreadydone.push(doughnuts);
 
@@ -635,10 +646,10 @@ $(document).ready(function() {
             data: ({sendthis:sendthis,andthis:andthis,andalsothis:andalsothis}),
             
             success : function(msg) {
-                $("#dataoutput").html(msg);
+                //$("#dataoutput").html(msg);
             },
             error : function(XMLHttpRequest, textStatus, errorThrown) {
-                $("#dataoutput").html("API Error");
+                //$("#dataoutput").html("API Error");
             }
         });
     }
