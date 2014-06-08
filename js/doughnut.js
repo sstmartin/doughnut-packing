@@ -24,14 +24,15 @@ $(document).ready(function() {
     var state_requested = 1;
     var selector = 0;
     var trial = 0;
+    var alltrials = 12;
 
     //TIME Variables
-    var time = 0;
     var timerrunning = 0;
     var stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var resumptionspots = ['','','','','','','','','','','',''];
     var statspos = 0;
     var startTime = 0;
-
+    
     //CONSTANTS
     //Trials Constant (note layout [trial-1][first or second part][variable]
     var trials = [[[36, 'Crispy', 'Heart', 'Kit Kat', 'None'], [45, 'Sticky', 'Diamond', 'M&M', 'Chocolate']],
@@ -46,6 +47,10 @@ $(document).ready(function() {
         [[25, 'Chewy', 'Star', 'Smarties', 'None'], [49, 'Original', 'Round', 'None', 'Chocolate']],
         [[26, 'Sticky', 'Star', 'None', 'Vanilla'], [18, 'Original', 'Round', 'Smarties', 'None']],
         [[22, 'Chewy', 'Round', 'Smarties', 'Strawberry'], [33, 'Crispy', 'Heart', 'Kit Kat', 'Chocolate']]];
+
+    var practicetrials = [[[8, 'Chewy', 'Diamond', 'None', 'Chocolate'],[9, 'Sticky', 'Round', 'M&M', 'Vanilla']],
+    [[6, 'Chewy', 'Diamond', 'Kit Kat', 'Vanilla'], [9, 'Sticky', 'Round', 'Smarties', 'None']],
+    [[10, 'Original', 'Heart', 'M&M', 'Chocolate'], [6, 'Chewy', 'Star', 'Kit Kat', 'Vanilla']]];
 
     var firsttask = ['Blank', 'Original', 'Crispy', 'Chewy', 'Sticky'];
     var secondtask = ['Blank', 'Round', 'Heart', 'Star', 'Diamond'];
@@ -80,7 +85,7 @@ $(document).ready(function() {
     }
 
     function error() {
-        if (experiment !== 0 && (selector === 0 && state_requested === 4)) {
+        if (experiment >= 0 && (selector === 0 && state_requested === 4)) {
             errorTwo();
         }
         else {
@@ -398,6 +403,20 @@ $(document).ready(function() {
 
         startMain();
     });
+    
+    $("#starttrial").click(function() {
+        user = parseInt($("#usernum").val());
+        experiment = -555;
+
+        trials = practicetrials;
+        alltrials = 3;
+
+        $("#launcher").empty();
+
+        //$('#runner').runner('start');
+
+        startMain();
+    });
 
     //MAIN SECTION
 
@@ -516,7 +535,7 @@ $(document).ready(function() {
             state_requested = 1;
 
             //If all trials are done
-            if (trial === 12) {
+            if (trial === alltrials) {
                 $("#main").hide();
                 $("#end").html("Thank you for participating");
                 writeToServer();
@@ -639,11 +658,12 @@ $(document).ready(function() {
         var sendthis = user.toString();
         var andthis = experiment.toString();
         var andalsothis = stats.toString();
+        var resumptions = resumptionspots.toString();
         
         var request = $.ajax({
             url:"storedata.php",
             type:"POST",
-            data: ({sendthis:sendthis,andthis:andthis,andalsothis:andalsothis}),
+            data: ({sendthis:sendthis,andthis:andthis,andalsothis:andalsothis,resumptions:resumptions}),
             
             success : function(msg) {
                 //$("#dataoutput").html(msg);
