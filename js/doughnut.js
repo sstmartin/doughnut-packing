@@ -569,7 +569,7 @@ $(document).ready(function() {
         ms = dif % 1000;
         s = Math.floor(dif / 1000) % 60;
         m = Math.floor(dif / 1000 / 60) % 60;
-        dumpdata = dumpdata + m + ":" + s + "." + ms + " - selector" + ", ";
+        dumpdata = dumpdata + m + ":" + s + "." + ms + " - process" + ", ";
 
 
         //Continue
