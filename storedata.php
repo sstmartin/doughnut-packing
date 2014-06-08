@@ -3,6 +3,8 @@
     $trialexperiment = $_POST['andthis'];
     $times = $_POST['andalsothis'];
     $resumptions = $_POST['resumptions'];
+    $ttimes = $_POST['ttimes'];
+    $dumpd = $_POST['dumpd'];
     
     #$command = escapeshellcmd('python /home/zo/public/storedata.py ' . $trialinfo . ' ' . $times);
     #$output = shell_exec($command);
@@ -17,7 +19,7 @@
         $file = fopen("/var/www/html/experiment/results/trials.txt","a");
     }
     
-    $writethis = "\n" . $date . "\n" . "User: " . $trialuser . " Experiment: " . $trialexperiment . "\n" . 'Times: ' . $times . "\n";
+    $writethis = "\n" . $date . "\n" . "User: " . $trialuser . " Experiment: " . $trialexperiment . "\n" . 'Times: ' . $times . "\n" . "Resumption Spots: " . $resumptions . "\n" . "Trial Times: " . $ttimes . "\n" . "Subtask Dump: " . $dumpd . "\n";
     
     fwrite($file,$writethis);
     fclose($file);

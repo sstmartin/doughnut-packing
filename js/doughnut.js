@@ -29,10 +29,20 @@ $(document).ready(function() {
     //TIME Variables
     var timerrunning = 0;
     var stats = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    var resumptionspots = ['','','','','','','','','','','',''];
+    var resumptionspots = ['', '', '', '', '', '', '', '', '', '', '', ''];
     var statspos = 0;
     var startTime = 0;
-    
+
+    //TOTAL TRAIL Length
+    var trialstart;
+    var trialend;
+    var trialtimes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var trialpos = 0;
+
+    //TIME  DUMP
+    var dumpstart = new Date().getTime();
+    var dumpdata = "DUMP DATA - ";
+
     //CONSTANTS
     //Trials Constant (note layout [trial-1][first or second part][variable]
     var trials = [[[36, 'Crispy', 'Heart', 'Kit Kat', 'None'], [45, 'Sticky', 'Diamond', 'M&M', 'Chocolate']],
@@ -48,9 +58,9 @@ $(document).ready(function() {
         [[26, 'Sticky', 'Star', 'None', 'Vanilla'], [18, 'Original', 'Round', 'Smarties', 'None']],
         [[22, 'Chewy', 'Round', 'Smarties', 'Strawberry'], [33, 'Crispy', 'Heart', 'Kit Kat', 'Chocolate']]];
 
-    var practicetrials = [[[8, 'Chewy', 'Diamond', 'None', 'Chocolate'],[9, 'Sticky', 'Round', 'M&M', 'Vanilla']],
-    [[6, 'Chewy', 'Diamond', 'Kit Kat', 'Vanilla'], [9, 'Sticky', 'Round', 'Smarties', 'None']],
-    [[10, 'Original', 'Heart', 'M&M', 'Chocolate'], [6, 'Chewy', 'Star', 'Kit Kat', 'Vanilla']]];
+    var practicetrials = [[[8, 'Chewy', 'Diamond', 'None', 'Chocolate'], [9, 'Sticky', 'Round', 'M&M', 'Vanilla']],
+        [[6, 'Chewy', 'Diamond', 'Kit Kat', 'Vanilla'], [9, 'Sticky', 'Round', 'Smarties', 'None']],
+        [[10, 'Original', 'Heart', 'M&M', 'Chocolate'], [6, 'Chewy', 'Star', 'Kit Kat', 'Vanilla']]];
 
     var firsttask = ['Blank', 'Original', 'Crispy', 'Chewy', 'Sticky'];
     var secondtask = ['Blank', 'Round', 'Heart', 'Star', 'Diamond'];
@@ -70,8 +80,9 @@ $(document).ready(function() {
         [0, 0, 1, 1, 0, 0],
         [0, 0, 0, 0, 0, 0]];
 
-
-
+    var practicepackingstates = [[0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 1, 0],
+        [0, 0, 0, 1, 0, 1]];
 
     /* FUNCTIONS
      * Function section. This section is responsible
@@ -345,7 +356,7 @@ $(document).ready(function() {
                 //Start the Timer
                 //$('#runner').runner('lap');
                 timerrunning = 1;
-                
+
                 //Start the homemade timer
                 startTime = new Date().getTime();
 
@@ -403,12 +414,14 @@ $(document).ready(function() {
 
         startMain();
     });
-    
+
     $("#starttrial").click(function() {
         user = parseInt($("#usernum").val());
         experiment = -555;
 
         trials = practicetrials;
+        packingstates = practicepackingstates;
+
         alltrials = 3;
 
         $("#launcher").empty();
@@ -424,6 +437,7 @@ $(document).ready(function() {
 
     //Checks when you click on any text box
     $("input").click(function() {
+        full = $(this).attr("id");
         indicator = $(this).attr("id").substring(0, 1);
 
         //Resets to Gray Border (catching error)
@@ -434,18 +448,20 @@ $(document).ready(function() {
 
         if (timerrunning === 1 && $("#main").is(":visible")) {
             var endTime = new Date().getTime();
-            
+
             timerrunning = 0;
             //var lapper = $("#runner").runner("lap");
             //stats[statspos] = lapper;
             //statspos = statspos + 1;
-            
+
             //New timer
             var dif = endTime - startTime;
-            ms = dif%1000;
-            s = Math.floor(dif/1000)%60;
-            m = Math.floor(dif/1000/60)%60;
+            ms = dif % 1000;
+            s = Math.floor(dif / 1000) % 60;
+            m = Math.floor(dif / 1000 / 60) % 60;
             stats[statspos] = m + ":" + s + "." + ms;
+            resumptionspots[statspos] = full;
+
             statspos = statspos + 1;
         }
 
@@ -472,6 +488,20 @@ $(document).ready(function() {
                 //If they clicked on the right subtask
                 if (they_clicked === state_requested) {
                     selector = they_clicked;
+
+                    //DUMP DATA HERE;
+                    if (selector !== 1) {
+                        var dumpendtime = new Date().getTime();
+                        var dif = dumpendtime - dumpstart;
+                        dumpstart = dumpendtime;
+                        ms = dif % 1000;
+                        s = Math.floor(dif / 1000) % 60;
+                        m = Math.floor(dif / 1000 / 60) % 60;
+                        dumpdata = dumpdata + m + ":" + s + "." + ms + " - " + full + ", ";
+                    }
+                    else {
+                        dumpstart = new Date().getTime();
+                    }
                 }
                 else {
                     error();
@@ -499,6 +529,10 @@ $(document).ready(function() {
 
     //Show Order Button
     $("#order").click(function() {
+        //Timing data first
+        trialstart = new Date().getTime();
+
+        //Visual things
         $("#order").hide();
 
         $("#alertentries").append("<tr align ='center'>" +
@@ -522,6 +556,23 @@ $(document).ready(function() {
     //Process Order Button
     $("#process").click(function() {
 
+        //Timing data first
+        trialend = new Date().getTime();
+        var dif = trialend - trialstart;
+        ms = dif % 1000;
+        s = Math.floor(dif / 1000) % 60;
+        m = Math.floor(dif / 1000 / 60) % 60;
+        trialtimes[trialpos] = m + ":" + s + "." + ms;
+        trialpos = trialpos + 1;
+
+        var dif = trialend - dumpstart;
+        ms = dif % 1000;
+        s = Math.floor(dif / 1000) % 60;
+        m = Math.floor(dif / 1000 / 60) % 60;
+        dumpdata = dumpdata + m + ":" + s + "." + ms + " - selector" + ", ";
+
+
+        //Continue
         if (state_requested === 6) {
             $("#alertentries").hide();
             $('#alertentries tr:last').remove();
@@ -654,21 +705,22 @@ $(document).ready(function() {
 
 
     function writeToServer() {
-        
+
         var sendthis = user.toString();
         var andthis = experiment.toString();
         var andalsothis = stats.toString();
         var resumptions = resumptionspots.toString();
-        
+        var ttimes = trialtimes.toString();
+        var dumpd = dumpdata;
+
         var request = $.ajax({
-            url:"storedata.php",
-            type:"POST",
-            data: ({sendthis:sendthis,andthis:andthis,andalsothis:andalsothis,resumptions:resumptions}),
-            
-            success : function(msg) {
+            url: "storedata.php",
+            type: "POST",
+            data: ({sendthis: sendthis, andthis: andthis, andalsothis: andalsothis, resumptions: resumptions, ttimes: ttimes, dumpd: dumpd}),
+            success: function(msg) {
                 //$("#dataoutput").html(msg);
             },
-            error : function(XMLHttpRequest, textStatus, errorThrown) {
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
                 //$("#dataoutput").html("API Error");
             }
         });
