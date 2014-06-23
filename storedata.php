@@ -12,7 +12,7 @@
     $date = date('m/d/Y h:i:s a', time());
     
     #$file = fopen("/home/zo/public/writehere.txt","a");
-    if($trialexperiment < 0) {
+    if($trialexperiment == -555) {
         $file = fopen("/var/www/html/experiment/results/practice.txt","a");
     }
     else {
